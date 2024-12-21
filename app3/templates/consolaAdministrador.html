@@ -1,0 +1,218 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vista de ingreso</title>
+        
+        <!--Importar bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        
+        <!--Importar fontAwesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+        <!--Importar scripts de javascript-->
+        <script src="{% static 'js/informacionUsuario.js' %}"></script>
+    </head>
+    <body>
+        <div class="bg-primary">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-4 mt-3 mb-3 text-white">
+                        <div class="row">
+                            <h5>Bienvenido</h5>
+                        </div>
+                        <div class="row">
+                            <h5></h5>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <a class="btn btn-success" href="{% url 'app3:cerrarSesion' %}"><i class="fa-solid fa-right-to-bracket"></i> Salir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3 mb-3">
+            <div>
+                <a href="{% url 'app3:informacionUsuario' %}" class="btn btn-info">Volver <i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+        </div>
+        <div class="mt-5 text-center">
+            <h1>Gestion de usuarios</h1>
+        </div>
+        <div class="mt-5 container">
+            <div class="row justify-content-between">
+                <div class="col-2">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoUsuario"><i class="fa-solid fa-user-plus"></i> Agregar usuario</button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 container">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                            <th>Username</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Numero de celular</th>
+                            <th>Editar</th>
+                        </thead>
+                        <tbody>
+                            {% for userInfo in allUsers %}
+                            <tr>
+                                <td>{{ userInfo.username }}</td>
+                                <td>{{ userInfo.first_name }}</td>
+                                <td>{{ userInfo.last_name }}</td>
+                                <td>{{ userInfo.datosusuario.nroCelular }}</td>
+                                <td class="text-center">
+                                    <a class="btn btn-warning" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editarUsuario" 
+                                        id="{{ userInfo.id }}" 
+                                        onclick="cargarInformacionUsuario(this.id)">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<!--Nuevo usuario-->
+<div class="modal fade" id="nuevoUsuario" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
+            <form method="post" action="{% url 'app3:registrarUsuario' %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear nuevo usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-5">
+                            <label>Username :</label>
+                            <input class="form-control" type="text" name="usernameUsuario" required>
+                        </div>
+                        <div class="col-5">
+                            <label>Password :</label>
+                            <input class="form-control" type="password" name="contraUsuario" required>
+                        </div>
+                    </div>
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-5">
+                            <label>Nombre :</label>
+                            <input class="form-control" type="text" name="nombreUsuario" required>
+                        </div>
+                        <div class="col-5">
+                            <label>Apellido :</label>
+                            <input class="form-control" type="text" name="apellidoUsuario" required>
+                        </div>
+                    </div>
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-5">
+                            <label>Profesion :</label>
+                            <input class="form-control" type="text" name="profesionUsuario" required>
+                        </div>
+                        <div class="col-5">
+                            <label>Email :</label>
+                            <input class="form-control" type="email" name="emailUsuario" required>
+                        </div>
+                    </div>
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-5">
+                            <label>Nro de celular :</label>
+                            <input class="form-control" type="text" name="nroCelular" required>
+                        </div>
+                    </div>
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-11">
+                            <label>Perfil del usuario :</label>
+                            <textarea class="form-control" type="text" name="perfilUsuario" rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--Editar usuario-->
+<div class="modal fade" id="editarUsuario" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" action="{% url 'app3:actualizarUsuario' %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Campo oculto para el ID del usuario -->
+                <div style="display: none;">
+                    <input type="hidden" id="idUsuario" name="idUsuario" value="">
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-5">
+                            <label>Username :</label>
+                            <input class="form-control" type="text" id="usernameUsuario" name="usernameUsuario" required>
+                        </div>
+                        <div class="col-5">
+                            <label>Password :</label>
+                            <input class="form-control" type="password" id="contraUsuario" name="contraUsuario">
+                        </div>
+                    </div>
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-5">
+                            <label>Nombre :</label>
+                            <input class="form-control" type="text" id="nombreUsuario" name="nombreUsuario" required>
+                        </div>
+                        <div class="col-5">
+                            <label>Apellido :</label>
+                            <input class="form-control" type="text" id="apellidoUsuario" name="apellidoUsuario" required>
+                        </div>
+                    </div>
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-5">
+                            <label>Profesion :</label>
+                            <input class="form-control" type="text" id="profesionUsuario" name="profesionUsuario" required>
+                        </div>
+                        <div class="col-5">
+                            <label>Email :</label>
+                            <input class="form-control" type="email" id="emailUsuario" name="emailUsuario" required>
+                        </div>
+                    </div>
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-5">
+                            <label>Nro de celular :</label>
+                            <input class="form-control" type="text" id="nroCelular" name="nroCelular" required>
+                        </div>
+                    </div>
+                    <div class="row form-group justify-content-around mb-3">
+                        <div class="col-11">
+                            <label>Perfil del usuario :</label>
+                            <textarea class="form-control" id="perfilUsuario" name="perfilUsuario" rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

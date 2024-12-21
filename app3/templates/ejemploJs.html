@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejemplo Js</title>
+        <script src="{% static 'js/ejemploJs.js' %}"></script>
+    </head>
+    <body>
+        <h1 id="numeroEditar">0</h1>
+        <div>
+            <button onclick="incrementarNumero()">Incrementar</button>
+            <button onclick="disminuirNumero()">Disminuir</button>
+        </div>
+        <div>
+            <select id="valorNumero" onchange="cargarNumero()">
+                <option value=""></option>
+                <option value="25">25</option>
+                <option value="35">35</option>
+                <option value="45">45</option>
+                <option value="55">55</option>
+                <option value="65">65</option>
+                <option value="75">75</option>
+            </select>
+            <input id="numSeleccionado" readonly>
+            <button onclick="agregarNumero()">Agregar</button>
+            <button onclick="actualizarSuma()">Sumar</button>
+        </div>
+        <br>
+        <h4>Lista de numeros : </h4>
+        <div>
+            <ul id="listaNumeros">
+
+            </ul>
+        </div>
+        <div>
+            LA SUMA DE LOS ELEMENTOS ES : <i id="sumaFinal">SUMA</i>
+        </div>
+    </body>
+</html>

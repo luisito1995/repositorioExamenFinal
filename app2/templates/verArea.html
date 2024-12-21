@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block titulo %}
+    Area : {{ objArea.nombreArea }}
+{% endblock %}
+
+{% block contenido %}
+<h2>AREA : {{ objArea.nombreArea }}</h2>
+<div>
+    <h4>LISTA DE USUARIOS</h4>
+    {% for usuarioInfo in listaUsuarios %}
+    <div>
+        <ul>
+            <li>{{ usuarioInfo.nombreUsuario }}</li>
+            <li>{{ usuarioInfo.numeroUsuario }}</li>
+        </ul>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% endblock %}

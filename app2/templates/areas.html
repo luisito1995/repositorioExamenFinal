@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block titulo %}
+    Areas registrados
+{% endblock %}
+
+{% block contenido %}
+    <h2>Lista de areas</h2>
+    <ol>
+        {% for areaInfo in areasTotales %}
+        <br>
+        <li>
+            <ul>
+                <li>Nombre : {{ areaInfo.nombreArea }}</li>
+                <li>Descripcion : {{ areaInfo.descripcionArea }}</li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ol>
+{% endblock %}

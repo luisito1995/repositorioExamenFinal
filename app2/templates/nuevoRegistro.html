@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block titulo %}
+    Nuevo Registro
+{% endblock %}
+
+{% block contenido %}
+    <h2>Crear nuevo usuario</h2>
+    <form class="row" method="post" action="{% url 'app2:nuevoRegistro' %}">
+        {% csrf_token %}
+        <div>
+            <label>Ingrese nombre</label>
+            <input type="text" name="nombreUsuario">
+        </div>
+        <div>
+            <label>Ingrese numero</label>
+            <input type="text" name="numeroUsuario">
+        </div>
+        <div>
+            <label>Ingrese direccion</label>
+            <input type="text" name="direccionUsuario">
+        </div>
+        <div>
+            <label>Seleccionar area</label>
+            <select name="areaSeleccionada">
+                {% for areaInfo in areasSistema %}
+                <option value="{{ areaInfo.id }}">{{ areaInfo.nombreArea }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <input type="submit" value="Registrar">
+        </div>
+    </form>
+{% endblock %}

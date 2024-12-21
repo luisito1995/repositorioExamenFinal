@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block titulo %}
+    Usuarios registrados
+{% endblock %}
+
+{% block contenido %}
+    <h2>Lista de usuarios</h2>
+    <ol>
+        {% for usuarioInfo in usuariosTotales %}
+        <br>
+        <li>
+            <ul>
+                <li>Nombre : {{ usuarioInfo.nombreUsuario }}</li>
+                <li>Telefono : {{ usuarioInfo.numeroUsuario }}</li>
+                <li>Direccion : {{ usuarioInfo.direccionUsuario }}</li>
+                <li>Area : {{ usuarioInfo.areaR.nombreArea }}</li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ol>
+{% endblock %}

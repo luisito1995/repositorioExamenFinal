@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block titulo %}
+    Nueva Area
+{% endblock %}
+
+{% block contenido %}
+<h2>Crear nueva area</h2>
+<form class="row" method="post" action="{% url 'app2:nuevaArea' %}">
+    {% csrf_token %}
+    <div>
+        <label>Ingrese nombre</label>
+        <input type="text" name="nombreDireccion">
+    </div>
+    <div>
+        <label>Ingrese descripcion</label>
+        <input type="text" name="descripcionDireccion">
+    </div>
+    <div>
+        <input type="submit" value="Registrar">
+    </div>
+</form>
+{% endblock %}
